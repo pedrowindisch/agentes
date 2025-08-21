@@ -38,11 +38,13 @@ def selecionar_etapa():
     grid = Grid(largura=20, altura=15)
     
     estrategia = cls()
-    
     if hasattr(estrategia, "inicializar_grid"):
         estrategia.inicializar_grid(grid)
-    
+
     agente = Agente(grid, x=5, y=5, estrategia=estrategia)
+    if hasattr(estrategia, "inicializar_agente"):
+        estrategia.inicializar_agente(agente)
+        
     renderizador = Renderizador(raiz, grid, agente)
     renderizador_atual = renderizador
 

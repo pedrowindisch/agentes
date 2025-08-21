@@ -1,4 +1,4 @@
-from models import Grid
+from models import Agente, Grid
 
 
 class Estrategia:
@@ -6,6 +6,9 @@ class Estrategia:
     descricao: str
 
     def inicializar_grid(self, grid: Grid):
+        return
+    
+    def inicializar_agente(self, agente: Agente):
         return
 
     def proximo_passo(self, agente):

@@ -25,6 +25,10 @@ class Grid:
         for (x, y, peso) in pontos:
             self.define_peso(x, y, peso)
 
+    def sinalizar_celula(self, x: int, y: int, caractere = None, cor = None):
+        self.celulas[x][y].caractere = caractere
+        self.celulas[x][y].cor = cor
+
     def eh_ponderado(self):
         ponderado = False
 

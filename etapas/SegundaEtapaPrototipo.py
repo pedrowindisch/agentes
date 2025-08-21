@@ -3,7 +3,7 @@ from models import Agente, Estrategia, Grid
 import random
 
 class SegundaEtapaPrototipo(Estrategia):
-    nome = "Agente reativo baseado em modelo (protótipo)"
+    nome = "Agente reativo baseado em modelo (TESTES/PROTÓTIPO)"
     descricao = "Agente sem memória, mas que evita obstáculos no grid."
 
     def inicializar_grid(self, grid: Grid):
@@ -14,6 +14,9 @@ class SegundaEtapaPrototipo(Estrategia):
         # ])
         grid.define_obstaculos([(2, 3), [2, 4], [2, 5], [3, 5], [8, 5], [8, 6], [8, 7], [8, 8], [8, 9], [7, 9], [6, 9]])
 
+    def inicializar_agente(self, agente):
+        agente.x = 0
+        agente.y = 0
 
     def proximo_passo(self, agente: Agente):
         # Realiza apenas um movimento aleatório em algumas das direções

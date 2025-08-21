@@ -1,2 +1,3 @@
 from .PrimeiraEtapa import PrimeiraEtapa
 from .SegundaEtapaPrototipo import SegundaEtapaPrototipo
+from .ComPesoPrototipo import ComPesoPrototipo

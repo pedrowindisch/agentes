@@ -4,3 +4,6 @@ class Celula:
         self.y = y
         self.eh_obstaculo = eh_obstaculo
         self.peso = peso
+
+        self.caractere: str = None
+        self.cor: str = None

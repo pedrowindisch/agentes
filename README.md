@@ -4,7 +4,7 @@ Simulações de agentes - projeto para a disciplina de Inteligência Artificial
 
 ## Adicionando simulações
 
-Para novas simulações, é necessário criar uma classe no diretório `/etapas` que implemente a classe [`Estrategia`](/models/Estrategia.py), como abaixo:
+Para novas simulações, é necessário criar a mesma no diretório `/etapas`, implementando a classe [`Estrategia`](/models/Estrategia.py), como abaixo:
 
 ```python
 class PrimeiraEtapa(Estrategia):
@@ -37,6 +37,42 @@ class SegundaEtapaPrototipo(Estrategia):
     def proximo_passo(self, agente: Agente):
         # Realiza apenas um movimento aleatório em algumas das direções
         return random.choice([(1,0), (-1,0), (0,1), (0,-1)])
+```
+
+Da mesma forma, é possível modificar o estado do agente antes de executar a simulação (para, por exemplo, definir a posição inicial dele), como abaixo:
+
+```python
+class SegundaEtapaPrototipo(Estrategia):
+    nome = "Agente reativo baseado em modelo (protótipo)"
+    descricao = "Agente sem memória, mas que evita obstáculos no grid."
+
+    # ... 
+
+    def inicializar_agente(self, agente):
+        agente.x = 0
+        agente.y = 0
+
+    # ...
+```
+
+É possível também sinalizar células com algum caractere/código, como, por exemplo, para destacar a célula inicial/final da etapa:
+
+```python
+class ComPesoPrototipo(Estrategia):
+    nome = "Agente reativo com pesos no grid (TESTES/PROTÓTIPO)"
+    descricao = "Grid com peso para TESTES."
+
+    def inicializar_grid(self, grid: Grid):
+        grid.define_pesos([
+            (2, 2, 2), (3, 2, 3), (4, 2, 2),
+            (1, 3, 2), (2, 3, 3), (3, 3, 3), (4, 3, 3), (5, 3, 2),
+            (2, 4, 2), (3, 4, 3), (4, 4, 2),
+        ])
+
+        grid.sinalizar_celula(9, 9, caractere="I")
+        grid.sinalizar_celula(5, 5, caractere="F")
+
+    # ...
 ```
 
 Após isso, adicione a classe no [`__init__.py`](/etapas/__init__.py).
