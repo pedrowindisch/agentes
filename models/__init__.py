@@ -3,3 +3,4 @@ from .Grid import Grid
 from .Renderizador import Renderizador
 from .Agente import Agente
 from .Estrategia import Estrategia
+from .MontadorCenario import MontadorCenario

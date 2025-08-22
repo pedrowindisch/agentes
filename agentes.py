@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 # from etapas import PrimeiraEtapa, SegundaEtapaPrototipo
-from models import Agente, Estrategia, Grid, Renderizador
+from models import Agente, Estrategia, Grid, MontadorCenario, Renderizador
 
 etapas_mod = importlib.import_module("etapas")
 etapas = [
@@ -19,12 +19,36 @@ raiz = tk.Tk()
 raiz.title("Agentes [inteligência artificial]")
 
 lista_etapas = tk.Listbox(raiz, width=50, height=10)
-for nome in etapas_descricoes.keys():
+for nome in sorted(etapas_descricoes.keys()):
     lista_etapas.insert(tk.END, nome)
 
 lista_etapas.pack(padx=10, pady=10)
 
+chk_valor = tk.BooleanVar()
+chk = tk.Checkbutton(raiz, text="Deseja inserir os obstáculos manualmente?", variable=chk_valor)
+chk.pack(pady=(0, 10))
+
 renderizador_atual: Renderizador | None = None 
+
+def iniciar_simulacao(cls, grid):
+    """Inicia a simulação no grid já montado (com ou sem obstáculos)."""
+    global renderizador_atual
+
+    estrategia = cls()
+    agente = Agente(grid, x=0, y=0, estrategia=estrategia)
+
+    if hasattr(estrategia, "inicializar"):
+        estrategia.inicializar(grid, agente)
+
+    renderizador = Renderizador(raiz, grid, agente)
+    renderizador_atual = renderizador
+
+    def mover():
+        agente.mover()
+        renderizador.renderizar()
+        raiz.after(700, mover)
+
+    mover()
 
 def selecionar_etapa():
     global renderizador_atual
@@ -36,25 +60,29 @@ def selecionar_etapa():
     messagebox.showinfo("Descrição", descricao)
 
     grid = Grid(largura=20, altura=15)
-    
-    estrategia = cls()
-    agente = Agente(grid, x=0, y=0, estrategia=estrategia)
 
-    if hasattr(estrategia, "inicializar"):
-        estrategia.inicializar(grid, agente)
-        
-    renderizador = Renderizador(raiz, grid, agente)
-    renderizador_atual = renderizador
+    if chk_valor and cls.permite_adicionar_obstaculos:
+        raiz_montador_cenario = tk.Toplevel(raiz)
+        raiz_montador_cenario.title("Montar cenário")
 
-    def mover():
-        agente.mover()
-        renderizador.renderizar()
-        raiz.after(200, mover)
+        montador_cenario = MontadorCenario(raiz_montador_cenario, grid)
+        montador_cenario.renderizar()
 
-    mover()
+        def concluir():
+            raiz_montador_cenario.destroy()
+            iniciar_simulacao(cls, grid)
+
+        btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
+        btn_concluir.pack(pady=10)
+    else:
+        if not cls.permite_adicionar_obstaculos:
+            messagebox.showwarning("Cenário", "Não é possível adicionar obstáculos para esse cenário/etapa")
+
+        iniciar_simulacao(cls, grid)
+
+
+btn = tk.Button(raiz, text="Executar etapa", command=selecionar_etapa, width=40)
+btn.pack(pady=(0, 10))
 
 if __name__ == "__main__":
-    btn = tk.Button(raiz, text="Executar Etapa", command=selecionar_etapa, width=40)
-    btn.pack(pady=(0, 10))
-
     raiz.mainloop()

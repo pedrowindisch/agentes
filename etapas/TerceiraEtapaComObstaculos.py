@@ -4,8 +4,10 @@ from collections import deque
 import random
 
 class TerceiraEtapaComObstaculos(Estrategia):
-    nome = "Agente baseado em objetivos (com obstáculos)"
+    nome = "3.2. Agente baseado em objetivos (com obstáculos)"
     descricao = "Dadas uma posição de partida (x, y) e uma célula de destino (x1, y1), o agente deve encontrar um caminho entre elas. Grid com obstáculos."
+
+    permite_adicionar_obstaculos = True
 
     caminho: list[tuple[int, int]] = []
     
@@ -13,8 +15,6 @@ class TerceiraEtapaComObstaculos(Estrategia):
     destino: tuple[int, int]
 
     def inicializar(self, grid: Grid, agente: Agente):
-        grid.define_obstaculos([(2, 3), [2, 4], [2, 5], [3, 5], [8, 5], [8, 6], [8, 7], [8, 8], [8, 9], [7, 9], [6, 9]])
-        
         # essas são as posições livres, sem obstáculos. criado para que o agente não "nasça" em uma célula proibida.
         posicoes_validas = [
             (x, y) 
@@ -36,7 +36,7 @@ class TerceiraEtapaComObstaculos(Estrategia):
         agente.grid.sinalizar_celula(
             self.destino[0],
             self.destino[1],
-            "D"
+            "D", "#c1e2be"
         )
 
     def calcular_melhor_caminho(self, grid: Grid, agente: Agente):
@@ -85,4 +85,14 @@ class TerceiraEtapaComObstaculos(Estrategia):
         self.caminho = caminho
 
     def proximo_passo(self, agente: Agente):
-        return random.choice([(1,0), (-1,0), (0,1), (0,-1)])
+        if (agente.x, agente.y) != self.destino:
+            indice_atual_caminho = self.caminho.index(((agente.x, agente.y)))
+
+            proximo_movimento = self.caminho[indice_atual_caminho + 1]
+            
+            agente.x = proximo_movimento[0]
+            agente.y = proximo_movimento[1]
+
+            return (0, 0)
+
+        return (0,0)

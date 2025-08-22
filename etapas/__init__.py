@@ -1,3 +1,3 @@
 from .PrimeiraEtapa import PrimeiraEtapa
-from .TerceiraEtapaComObstaculos import TerceiraEtapaComObstaculos
 from .TerceiraEtapaLivre import TerceiraEtapaLivre
+from .TerceiraEtapaComObstaculos import TerceiraEtapaComObstaculos

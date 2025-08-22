@@ -5,6 +5,8 @@ class Estrategia:
     nome: str
     descricao: str
 
+    permite_adicionar_obstaculos: bool
+
     def inicializar(self, grid: Grid, agente: Agente):
         return
 
