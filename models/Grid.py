@@ -9,9 +9,13 @@ class Grid:
             for x in range(largura)
         ]
 
+        self.obstaculos: list[tuple[int, int]] = []
+
     def define_obstaculo(self, x, y):
         if self.eh_dentro_do_grid(x, y):
             self.celulas[x][y].eh_obstaculo = True
+
+            self.obstaculos.append((x, y))
 
     def define_obstaculos(self, pontos: list[tuple[int, int]]):
         for (x, y) in pontos:

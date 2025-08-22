@@ -37,10 +37,13 @@ class Renderizador:
 
                     # nesse caso, a célula está sinalizada (pode ser célula de início, célula fim, etc.)
                     if celula.caractere is not None: cor = "#E1E1E1"
+                
+                if celula.cor is not None: cor = celula.cor
 
                 self.canvas.create_rectangle(
                     x*20, y*20, (x+1)*20, (y+1)*20,
-                    fill=cor, outline="#B6B6B6" if not exibir_pesos else ""
+                    fill=cor, outline=
+                        "#B6B6B6" if not exibir_pesos else ""
                 )
 
                 if exibir_pesos and celula.caractere is None:

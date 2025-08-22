@@ -2,6 +2,23 @@
 
 Simulações de agentes - projeto para a disciplina de Inteligência Artificial
 
+## Tópicos/sumário
+- [Etapas](#etapas)
+- [Adicionando simulações](#adicionando-simulações)
+- [Rodando o projeto](#rodando-o-projeto)
+
+## Etapas
+- [ ] Primeira etapa (agente reativo simples): agente sem memória, decisão de movimento baseada apenas na percepção atual (posição e limites do grid). Grid sem obstáculos.
+- [ ] Segunda etapa (agente reativo baseado em modelos): agente com memória, objetivo de visitar o maior número possível de células do grid, evitando repetir já visitadas. Grid com obstáculos.
+- [´] Terceira etapa (agente baseado em objetivos): dividida em duas fases.
+    - [ ] Ambiente livre: grid vazio, com início e fim desconhecidos a priori
+    - [X] Ambiente com obstáculos: agente capaz de encontrar o caminho desviando de obstáculos.
+- [ ] Quarta etapa (agente baseado em utilidade): dividida em duas fases:
+    - [ ] Ambiente completamente observável
+    - [ ] Ambiente parcialmente observável
+
+Os itens sinalizados já estão finalizados.
+
 ## Adicionando simulações
 
 Para novas simulações, é necessário criar a mesma no diretório `/etapas`, implementando a classe [`Estrategia`](/models/Estrategia.py), como abaixo:
@@ -18,14 +35,14 @@ class PrimeiraEtapa(Estrategia):
 
 Todas as informações para o desenvolvimento de algoritmos podem ser encontrados no parâmetro `agente` (o grid, as células, posição atual do agente, etc.).
 
-Caso seja necessário modificar o grid antes da execução da simulação (gerar obstáculos, gerar pesos para as células), sobrescreva o método `inicializar_grid` da classe:
+Caso seja necessário modificar o grid antes da execução da simulação (gerar obstáculos, gerar pesos para as células), sobrescreva o método `inicializar` da classe:
 
 ```python
 class SegundaEtapaPrototipo(Estrategia):
     nome = "Agente reativo baseado em modelo (protótipo)"
     descricao = "Agente sem memória, mas que evita obstáculos no grid."
 
-    def inicializar_grid(self, grid: Grid):
+    def inicializar(self, grid: Grid, agente: Agente):
         # grid.define_pesos([
         #     (2, 2, 2), (3, 2, 3), (4, 2, 2),
         #     (1, 3, 2), (2, 3, 3), (3, 3, 3), (4, 3, 3), (5, 3, 2),
@@ -48,7 +65,7 @@ class SegundaEtapaPrototipo(Estrategia):
 
     # ... 
 
-    def inicializar_agente(self, agente):
+    def inicializar(self, grid, agente):
         agente.x = 0
         agente.y = 0
 
@@ -62,7 +79,7 @@ class ComPesoPrototipo(Estrategia):
     nome = "Agente reativo com pesos no grid (TESTES/PROTÓTIPO)"
     descricao = "Grid com peso para TESTES."
 
-    def inicializar_grid(self, grid: Grid):
+    def inicializar(self, grid: Grid, agente: Agente):
         grid.define_pesos([
             (2, 2, 2), (3, 2, 3), (4, 2, 2),
             (1, 3, 2), (2, 3, 3), (3, 3, 3), (4, 3, 3), (5, 3, 2),

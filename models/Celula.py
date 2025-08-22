@@ -7,3 +7,7 @@ class Celula:
 
         self.caractere: str = None
         self.cor: str = None
+
+    def celulas_vizinhas(self) -> list[tuple[int, int]]:
+        """Retorna uma lista com as quatro possibilidades de vizinhos. Os vizinhos podem ser INVÁLIDOS (fora do grid), então é preciso validar."""
+        return [(self.x, self.y + 1), (self.x + 1, self.y), (self.x, self.y - 1), (self.x - 1, self.y)] 
