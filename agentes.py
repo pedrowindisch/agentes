@@ -1,11 +1,16 @@
 import importlib
 import inspect  # <-- keep this
 
+from os import path, remove
+import pickle
+
 import tkinter as tk
 from tkinter import messagebox
 
 # from etapas import PrimeiraEtapa, SegundaEtapaPrototipo
 from models import Agente, Estrategia, Grid, MontadorCenario, Renderizador
+
+NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS = "obstaculos"
 
 etapas_mod = importlib.import_module("etapas")
 etapas = [
@@ -61,7 +66,11 @@ def selecionar_etapa():
 
     grid = Grid(largura=20, altura=15)
 
-    if chk_valor and cls.permite_adicionar_obstaculos:
+    if chk_valor.get() and cls.permite_adicionar_obstaculos:
+        # if path.exists(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS):
+        #     try: grid.obstaculos = pickle.load(file=open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "rb"))
+        #     except Exception as ex: print(ex)
+
         raiz_montador_cenario = tk.Toplevel(raiz)
         raiz_montador_cenario.title("Montar cenário")
 
@@ -70,12 +79,17 @@ def selecionar_etapa():
 
         def concluir():
             raiz_montador_cenario.destroy()
+
+            # salvando os obstáculos para não precisar "recolocar" eles depois
+            # with open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "wb") as arq:
+            #     pickle.dump(grid.obstaculos, arq)
+
             iniciar_simulacao(cls, grid)
 
         btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
         btn_concluir.pack(pady=10)
     else:
-        if not cls.permite_adicionar_obstaculos:
+        if chk_valor.get() and not cls.permite_adicionar_obstaculos:
             messagebox.showwarning("Cenário", "Não é possível adicionar obstáculos para esse cenário/etapa")
 
         iniciar_simulacao(cls, grid)
