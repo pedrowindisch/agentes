@@ -8,10 +8,10 @@ Simulações de agentes - projeto para a disciplina de Inteligência Artificial
 - [Rodando o projeto](#rodando-o-projeto)
 
 ## Etapas
-- [ ] Primeira etapa (agente reativo simples): agente sem memória, decisão de movimento baseada apenas na percepção atual (posição e limites do grid). Grid sem obstáculos.
+- [X] Primeira etapa (agente reativo simples): agente sem memória, decisão de movimento baseada apenas na percepção atual (posição e limites do grid). Grid sem obstáculos.
 - [ ] Segunda etapa (agente reativo baseado em modelos): agente com memória, objetivo de visitar o maior número possível de células do grid, evitando repetir já visitadas. Grid com obstáculos.
-- [´] Terceira etapa (agente baseado em objetivos): dividida em duas fases.
-    - [ ] Ambiente livre: grid vazio, com início e fim desconhecidos a priori
+- [X] Terceira etapa (agente baseado em objetivos): dividida em duas fases.
+    - [X] Ambiente livre: grid vazio, com início e fim desconhecidos a priori
     - [X] Ambiente com obstáculos: agente capaz de encontrar o caminho desviando de obstáculos.
 - [ ] Quarta etapa (agente baseado em utilidade): dividida em duas fases:
     - [ ] Ambiente completamente observável
