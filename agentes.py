@@ -51,7 +51,7 @@ def iniciar_simulacao(cls, grid):
     def mover():
         agente.mover()
         renderizador.renderizar()
-        raiz.after(700, mover)
+        raiz.after(300, mover)
 
     mover()
 
@@ -85,6 +85,20 @@ def selecionar_etapa():
             #     pickle.dump(grid.obstaculos, arq)
 
             iniciar_simulacao(cls, grid)
+
+        txt_instrucoes = tk.Text(
+            raiz_montador_cenario,
+            height=6,       
+            width=50,       
+            wrap="word"     
+        )
+        txt_instrucoes.insert("1.0", 
+            "clique e arraste (bt. esquerdo) para adicionar/remover obstáculos\n"
+            "clique duplo para definir o ponto de PARTIDA (azul).\n"
+            "shift + clique duplo para definir o ponto de DESTINO (verde)."
+        )
+        txt_instrucoes.config(state="disabled") 
+        txt_instrucoes.pack(pady=10)
 
         btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
         btn_concluir.pack(pady=10)

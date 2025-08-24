@@ -23,8 +23,8 @@ class TerceiraEtapaComObstaculos(Estrategia):
             if (x, y) not in grid.obstaculos
         ] 
 
-        self.partida = random.choice(posicoes_validas)
-        self.destino = random.choice(posicoes_validas)
+        self.partida = random.choice(posicoes_validas) if grid.ponto_partida_escolhido is None else (grid.ponto_partida_escolhido.x, grid.ponto_partida_escolhido.y)
+        self.destino = random.choice(posicoes_validas) if grid.ponto_destino_escolhido is None else (grid.ponto_destino_escolhido.x, grid.ponto_destino_escolhido.y)
 
         agente.x = self.partida[0]
         agente.y = self.partida[1]

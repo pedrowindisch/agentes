@@ -11,6 +11,9 @@ class Grid:
 
         self.obstaculos: list[tuple[int, int]] = []
 
+        self.ponto_partida_escolhido: Celula = None
+        self.ponto_destino_escolhido: Celula = None
+
     def define_obstaculo(self, x, y):
         if self.eh_dentro_do_grid(x, y):
             self.celulas[x][y].eh_obstaculo = True
