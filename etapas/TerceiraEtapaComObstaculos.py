@@ -7,7 +7,7 @@ class TerceiraEtapaComObstaculos(Estrategia):
     nome = "3.2. Agente baseado em objetivos (com obstáculos)"
     descricao = "Dadas uma posição de partida (x, y) e uma célula de destino (x1, y1), o agente deve encontrar um caminho entre elas. Grid com obstáculos."
 
-    permite_adicionar_obstaculos = True
+    # permite_adicionar_obstaculos removido por ser redundante
 
     caminho: list[tuple[int, int]] = []
     
