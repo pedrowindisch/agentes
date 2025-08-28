@@ -29,9 +29,7 @@ for nome in sorted(etapas_descricoes.keys()):
 
 lista_etapas.pack(padx=10, pady=10)
 
-chk_valor = tk.BooleanVar()
-chk = tk.Checkbutton(raiz, text="Deseja inserir os obstáculos manualmente?", variable=chk_valor)
-chk.pack(pady=(0, 10))
+chk_valor = None  # Checkbox removido
 
 renderizador_atual: Renderizador | None = None 
 
@@ -58,7 +56,8 @@ def iniciar_simulacao(cls, grid):
 def selecionar_etapa():
     global renderizador_atual
 
-    if renderizador_atual: renderizador_atual.destruir()
+    if renderizador_atual:
+        renderizador_atual.destruir()
 
     selecionado = lista_etapas.get(lista_etapas.curselection())
     cls, descricao = etapas_descricoes[selecionado]
@@ -66,11 +65,8 @@ def selecionar_etapa():
 
     grid = Grid(largura=20, altura=15)
 
-    if chk_valor.get() and cls.permite_adicionar_obstaculos:
-        # if path.exists(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS):
-        #     try: grid.obstaculos = pickle.load(file=open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "rb"))
-        #     except Exception as ex: print(ex)
-
+    # Só a etapa 3.2 permite obstáculos manualmente
+    if hasattr(cls, "nome") and cls.nome == "3.2. Agente baseado em objetivos (com obstáculos)":
         raiz_montador_cenario = tk.Toplevel(raiz)
         raiz_montador_cenario.title("Montar cenário")
 
@@ -79,33 +75,25 @@ def selecionar_etapa():
 
         def concluir():
             raiz_montador_cenario.destroy()
-
-            # salvando os obstáculos para não precisar "recolocar" eles depois
-            # with open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "wb") as arq:
-            #     pickle.dump(grid.obstaculos, arq)
-
             iniciar_simulacao(cls, grid)
 
         txt_instrucoes = tk.Text(
             raiz_montador_cenario,
-            height=6,       
-            width=50,       
-            wrap="word"     
+            height=6,
+            width=50,
+            wrap="word"
         )
-        txt_instrucoes.insert("1.0", 
+        txt_instrucoes.insert("1.0",
             "clique e arraste (bt. esquerdo) para adicionar/remover obstáculos\n"
             "clique duplo para definir o ponto de PARTIDA (azul).\n"
             "shift + clique duplo para definir o ponto de DESTINO (verde)."
         )
-        txt_instrucoes.config(state="disabled") 
+        txt_instrucoes.config(state="disabled")
         txt_instrucoes.pack(pady=10)
 
         btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
         btn_concluir.pack(pady=10)
     else:
-        if chk_valor.get() and not cls.permite_adicionar_obstaculos:
-            messagebox.showwarning("Cenário", "Não é possível adicionar obstáculos para esse cenário/etapa")
-
         iniciar_simulacao(cls, grid)
 
 
