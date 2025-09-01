@@ -64,8 +64,11 @@ def selecionar_etapa():
     cls, descricao = etapas_descricoes[selecionado]
     messagebox.showinfo("Descrição", descricao)
 
-    grid = Grid(largura=20, altura=15)
-
+    if cls.__name__ == "QuartaEtapaObservavel":
+        grid = Grid(largura=10, altura=11)
+    else:
+        grid = Grid(largura=20, altura=15)
+    
     if chk_valor.get() and cls.permite_adicionar_obstaculos:
         # if path.exists(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS):
         #     try: grid.obstaculos = pickle.load(file=open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "rb"))

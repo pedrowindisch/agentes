@@ -1,3 +1,4 @@
 from .PrimeiraEtapa import PrimeiraEtapa
 from .TerceiraEtapaLivre import TerceiraEtapaLivre
 from .TerceiraEtapaComObstaculos import TerceiraEtapaComObstaculos
+from .QuartaEtapaObservavel import QuartaEtapaObservavel
