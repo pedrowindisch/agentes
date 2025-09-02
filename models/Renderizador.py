@@ -1,9 +1,9 @@
 import tkinter as tk
 
-from models import Grid
+from models import Agente, Grid
 
 class Renderizador:
-    def __init__(self, raiz, grid: Grid, agente):
+    def __init__(self, raiz, grid: Grid, agente: Agente):
         self.canvas = tk.Canvas(raiz, width=grid.largura*20, height=grid.altura*20)
         self.canvas.pack()
         self.grid = grid
@@ -14,7 +14,7 @@ class Renderizador:
         self.canvas.destroy()
 
     def renderizar(self):
-        exibir_pesos = self.grid.eh_ponderado()
+        exibir_pesos = self.grid.eh_ponderado() or self.agente.estrategia.eh_ponderada
 
         self.canvas.delete("all")
         for x in range(self.grid.largura):

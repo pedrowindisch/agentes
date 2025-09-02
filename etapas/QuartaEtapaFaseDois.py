@@ -3,10 +3,12 @@ import heapq
 import random
 
 class QuartaEtapaFaseDois(Estrategia):
-    nome = "4.2. Agente Baseado em Utilidade (com obstáculos)"
+    nome = "4.2. Agente baseado em utilidade (com obstáculos)"
     descricao = "Dadas uma posição de partida (x, y) e uma célula de destino (x1, y1), o agente deve encontrar um caminho entre elas considerando o peso das celulas. Grid com obstáculos."
     custoTotal: int = 0
+
     permite_adicionar_obstaculos = True
+    eh_ponderada = True
 
     caminho: list[tuple[int, int]] = []
     partida: tuple[int, int]

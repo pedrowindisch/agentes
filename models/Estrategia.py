@@ -7,6 +7,7 @@ class Estrategia:
     custoTotal: 0
 
     permite_adicionar_obstaculos: bool
+    eh_ponderada: bool = False
 
     def inicializar(self, grid: Grid, agente: Agente):
         return
