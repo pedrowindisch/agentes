@@ -70,14 +70,12 @@ def selecionar_etapa():
     else:
         grid = Grid(largura=20, altura=15)
     
-    if chk_valor.get() and cls.permite_adicionar_obstaculos:
+    if cls.permite_adicionar_obstaculos:
         # if path.exists(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS):
         #     try: grid.obstaculos = pickle.load(file=open(NOME_ARQUIVO_OBSTACULOS_SERIALIZADOS, "rb"))
         #     except Exception as ex: print(ex)
-    grid = Grid(largura=20, altura=15)
+        grid = Grid(largura=20, altura=15)
 
-    # Só a etapa 3.2 permite obstáculos manualmente
-    if hasattr(cls, "nome") and cls.nome == "3.2. Agente baseado em objetivos (com obstáculos)
         raiz_montador_cenario = tk.Toplevel(raiz)
         raiz_montador_cenario.title("Montar cenário")
 
