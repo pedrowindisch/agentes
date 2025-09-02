@@ -20,6 +20,7 @@ class MontadorCenario:
 
         self.canvas.bind("<Double-Button-1>", self.setar_partida)
         self.canvas.bind("<Shift-Double-Button-1>", self.setar_destino)
+        self.canvas.bind("<Button-3>", self.alterar_peso)
         
         self.renderizar()
     
@@ -27,6 +28,11 @@ class MontadorCenario:
         self.canvas.destroy()
 
     def renderizar(self):
+        CORES_PESOS = {
+        1: "#7ee07e",  # verde
+        2: "#ffff70",  # amarelo
+        3: "#ff7070",  # vermelho
+        }
         for x in range(self.grid.largura):
             for y in range(self.grid.altura):
                 celula = self.grid.celulas[x][y]
@@ -34,6 +40,8 @@ class MontadorCenario:
 
                 if celula.eh_obstaculo:
                     cor = "#B6B6B6"
+                else:
+                    cor = CORES_PESOS.get(celula.peso, "#E1E1E1") 
 
                 tag = f"celula-{x}-{y}"
                 self.canvas.create_rectangle(
@@ -159,3 +167,25 @@ class MontadorCenario:
 
         self.grid.ponto_destino_escolhido = celula
         self.canvas.itemconfig(f"celula-{x}-{y}", fill="#7e8c54")
+
+    def alterar_peso(self, event):
+        CORES_PESOS = {
+        1: "#7ee07e",  # verde
+        2: "#ffff70",  # amarelo
+        3: "#ff7070",  # vermelho
+        }
+        x, y = self.retorna_celula_por_coordenadas(event)
+        if x is None: return
+
+        celula = self.grid.celulas[x][y]
+        
+        if celula.eh_obstaculo: 
+            self.definir_estado_celula(x, y, True)
+            return 
+
+        celula.peso += 1
+        if celula.peso > 3:
+            celula.peso = 1
+
+        cor = CORES_PESOS[celula.peso]
+        self.canvas.itemconfig(f"celula-{x}-{y}", fill=cor)

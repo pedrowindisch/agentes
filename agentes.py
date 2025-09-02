@@ -93,6 +93,34 @@ def selecionar_etapa():
 
         btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
         btn_concluir.pack(pady=10)
+    elif hasattr(cls, "nome") and cls.nome == "4.2. Agente Baseado em Utilidade (com obstáculos)":
+        raiz_montador_cenario = tk.Toplevel(raiz)
+        raiz_montador_cenario.title("Montar cenário")
+
+        montador_cenario = MontadorCenario(raiz_montador_cenario, grid)
+        montador_cenario.renderizar()
+
+        def concluir():
+            raiz_montador_cenario.destroy()
+            iniciar_simulacao(cls, grid)
+
+        txt_instrucoes = tk.Text(
+            raiz_montador_cenario,
+            height=8,
+            width=50,
+            wrap="word"
+        )
+        txt_instrucoes.insert("1.0",
+            "clique e arraste (bt. esquerdo) para adicionar/remover obstáculos\n"
+            "clique duplo para definir o ponto de PARTIDA (azul).\n"
+            "shift + clique duplo para definir o ponto de DESTINO (verde). \n"
+            "clique no botão direito para definir o peso das células (1, 2 ou 3)."
+        )
+        txt_instrucoes.config(state="disabled")
+        txt_instrucoes.pack(pady=10)
+
+        btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
+        btn_concluir.pack(pady=10)
     else:
         iniciar_simulacao(cls, grid)
 
