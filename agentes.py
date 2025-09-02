@@ -33,7 +33,7 @@ chk_valor = None  # Checkbox removido
 
 renderizador_atual: Renderizador | None = None 
 
-def iniciar_simulacao(cls, grid):
+def iniciar_simulacao(cls, grid) -> Estrategia:
     """Inicia a simulação no grid já montado (com ou sem obstáculos)."""
     global renderizador_atual
 
@@ -52,6 +52,8 @@ def iniciar_simulacao(cls, grid):
         raiz.after(300, mover)
 
     mover()
+
+    return estrategia
 
 def selecionar_etapa():
     global renderizador_atual
@@ -102,7 +104,12 @@ def selecionar_etapa():
 
         def concluir():
             raiz_montador_cenario.destroy()
-            iniciar_simulacao(cls, grid)
+            estrategia_inst = iniciar_simulacao(cls, grid)
+            messagebox.showinfo(
+                    "Custo Total",
+                    f"O custo total do caminho é: {estrategia_inst.custoTotal}"
+                )
+                
 
         txt_instrucoes = tk.Text(
             raiz_montador_cenario,
@@ -121,6 +128,7 @@ def selecionar_etapa():
 
         btn_concluir = tk.Button(raiz_montador_cenario, text="Concluir", command=concluir)
         btn_concluir.pack(pady=10)
+
     else:
         iniciar_simulacao(cls, grid)
 
