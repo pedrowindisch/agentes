@@ -13,8 +13,8 @@ Simulações de agentes - projeto para a disciplina de Inteligência Artificial
 - [X] Terceira etapa (agente baseado em objetivos): dividida em duas fases.
     - [X] Ambiente livre: grid vazio, com início e fim desconhecidos a priori
     - [X] Ambiente com obstáculos: agente capaz de encontrar o caminho desviando de obstáculos.
-- [ ] Quarta etapa (agente baseado em utilidade): dividida em duas fases:
-    - [ ] Ambiente completamente observável
+- [X] Quarta etapa (agente baseado em utilidade): dividida em duas fases:
+    - [X] Ambiente completamente observável
     - [X] Ambiente parcialmente observável
 
 Os itens sinalizados já estão finalizados.
