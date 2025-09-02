@@ -5,6 +5,11 @@ from models import Grid
 
 class MontadorCenario:
     TAMANHO_CELULA = 20
+    CORES_PESOS = {
+        1: "#CFFDBC",  # verde
+        2: "#FFCD98",  # amarelo
+        3: "#E78587",  # vermelho
+    }
 
     def __init__(self, raiz, grid: Grid):
         self.canvas = tk.Canvas(raiz, width=grid.largura*20, height=grid.altura*20)
@@ -28,11 +33,6 @@ class MontadorCenario:
         self.canvas.destroy()
 
     def renderizar(self):
-        CORES_PESOS = {
-        1: "#7ee07e",  # verde
-        2: "#ffff70",  # amarelo
-        3: "#ff7070",  # vermelho
-        }
         for x in range(self.grid.largura):
             for y in range(self.grid.altura):
                 celula = self.grid.celulas[x][y]
@@ -41,7 +41,7 @@ class MontadorCenario:
                 if celula.eh_obstaculo:
                     cor = "#B6B6B6"
                 else:
-                    cor = CORES_PESOS.get(celula.peso, "#E1E1E1") 
+                    cor = self.CORES_PESOS.get(celula.peso, "#E1E1E1") 
 
                 tag = f"celula-{x}-{y}"
                 self.canvas.create_rectangle(
@@ -169,11 +169,6 @@ class MontadorCenario:
         self.canvas.itemconfig(f"celula-{x}-{y}", fill="#7e8c54")
 
     def alterar_peso(self, event):
-        CORES_PESOS = {
-        1: "#7ee07e",  # verde
-        2: "#ffff70",  # amarelo
-        3: "#ff7070",  # vermelho
-        }
         x, y = self.retorna_celula_por_coordenadas(event)
         if x is None: return
 
@@ -187,5 +182,5 @@ class MontadorCenario:
         if celula.peso > 3:
             celula.peso = 1
 
-        cor = CORES_PESOS[celula.peso]
+        cor = self.CORES_PESOS[celula.peso]
         self.canvas.itemconfig(f"celula-{x}-{y}", fill=cor)
