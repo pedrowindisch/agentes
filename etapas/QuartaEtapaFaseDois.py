@@ -5,7 +5,7 @@ import random
 class QuartaEtapaFaseDois(Estrategia):
     nome = "4.2. Agente Baseado em Utilidade (com obstáculos)"
     descricao = "Dadas uma posição de partida (x, y) e uma célula de destino (x1, y1), o agente deve encontrar um caminho entre elas considerando o peso das celulas. Grid com obstáculos."
-
+    custoTotal: int = 0
     permite_adicionar_obstaculos = True
 
     caminho: list[tuple[int, int]] = []
@@ -85,6 +85,9 @@ class QuartaEtapaFaseDois(Estrategia):
 
         caminho.reverse()
         self.caminho = caminho
+
+        # aqui printa o custo total do caminho
+        self.custoTotal = custo_total[self.destino[0]][self.destino[1]]
 
     def proximo_passo(self, agente: Agente):
         if (agente.x, agente.y) != self.destino:
