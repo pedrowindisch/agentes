@@ -15,7 +15,7 @@ Simulações de agentes - projeto para a disciplina de Inteligência Artificial
     - [X] Ambiente com obstáculos: agente capaz de encontrar o caminho desviando de obstáculos.
 - [ ] Quarta etapa (agente baseado em utilidade): dividida em duas fases:
     - [ ] Ambiente completamente observável
-    - [ ] Ambiente parcialmente observável
+    - [X] Ambiente parcialmente observável
 
 Os itens sinalizados já estão finalizados.
 

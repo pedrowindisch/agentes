@@ -28,7 +28,9 @@ class Renderizador:
                 if exibir_pesos:
                     # todo: ajustar pra ser algo mais dinâmico... meio que uma escala de cores, já que o peso pode ser "dinâmico" (ir de 1 a 5... 1 a 10, etc. etc.), e não
                     # fixamente de 1 a 3
-                    if celula.peso == 1:
+                    if celula.eh_obstaculo:
+                        cor = "#B6B6B6"
+                    elif celula.peso == 1:
                         cor = "#CFFDBC"
                     elif celula.peso == 2:
                         cor = "#FFCD98"
